@@ -1,0 +1,68 @@
+- hosts: all
+  vars:
+    poltergeist: 2.1.1
+    rbenv:
+      env: user
+      version: master
+      default_ruby: 2.4.1
+      rubies:
+      - version: 2.4.1
+  roles:
+  - role: zzet.rbenv
+    rbenv_users:
+    - vagrant
+  tasks:
+  - name: configure 'Webtatic' repository for PHP 7.1
+    become: true
+    yum:
+      name: https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+      state: present
+  - name: configure PostgresSQL 9.5 repository
+    become: true
+    yum:
+      name: https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
+      state: present
+  - name: install posgresql 9.5
+    become: true
+    yum: name=postgresql95-server state=present
+  - name: initialize postgresql database
+    command: /usr/pgsql-9.5/bin/postgresql95-setup initdb
+    args: {creates: /var/lib/pgsql/9.5/data/postgresql.conf}
+    become: true
+  - name: start postgresql daemon
+    service: name=postgresql-9.5 enabled=true state=started
+    become: true
+  - name: install apache2 + PHP
+    become: true
+    action: "{{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes"
+    with_items:
+    - httpd
+    - mod_php71w
+    - php71w-fpm
+    - php71w-cli
+    - php71w-pgsql
+  - name: start httpd daemon
+    service: name=httpd enabled=true state=started
+    become: true
+  - name: retrieve phantomjs for poltergeist
+    unarchive:
+      src: https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-{{ poltergeist|quote }}-linux-x86_64.tar.bz2
+      dest: /tmp
+      remote_src: true
+      creates: /tmp/phantomjs-{{ poltergeist|quote }}-linux-x86_64/bin/phantomjs
+  - name: install phantomjs for poltergeist
+    command: cp /tmp/phantomjs-{{ poltergeist|quote }}-linux-x86_64/bin/phantomjs
+      /usr/local/bin/
+    args:
+      creates: /usr/local/bin/phantomjs
+    become: true
+  post_tasks:
+  - name: copy standard bundler files to home directory
+    copy: src={{ item }} dest=/home/vagrant/
+    with_fileglob: Gemfile*
+  - name: install 'bundler' gem
+    gem: name=bundler state=present
+  - name: install bundled gems in home directory
+    bundler: state=present exclude_groups=production
+  - name: install bundled gems in source tree
+    bundler: state=present exclude_groups=production chdir=/vagrant
