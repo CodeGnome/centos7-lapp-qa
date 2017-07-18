@@ -51,9 +51,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capybara
-  cucumber
-  poltergeist
+  capybara (~> 2.14.4)
+  cucumber (~> 2.4.0)
+  poltergeist (~> 1.15.0)
 
 BUNDLED WITH
    1.15.1
