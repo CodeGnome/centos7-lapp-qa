@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
     vb.memory = 1_024
   end
 
-  config.vm.synced_folder '..', '/usr/local/src'
+  config.vm.synced_folder '..', '/usr/local/src', type: 'virtualbox'
 
   config.vm.provision 'ansible' do |ansible|
     ansible.playbook = 'playbook.yml'
