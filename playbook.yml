@@ -40,9 +40,16 @@
     - httpd
     - mod_php71w
     - npm
+    - php71w-bcmath
     - php71w-fpm
     - php71w-cli
     - php71w-pgsql
+    - php71w-mcrypt
+    - php71w-mysql
+    - php71w-odbc
+    - php71w-pear
+    - php71w-xml
+    - php71w-xmlrpc
   - name: install phantomjs via npm
     command: npm install -g phantomjs
     args:
