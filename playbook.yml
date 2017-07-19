@@ -38,6 +38,7 @@
     with_items:
     - httpd
     - mod_php71w
+    - npm
     - php71w-fpm
     - php71w-cli
     - php71w-pgsql
