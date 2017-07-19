@@ -42,20 +42,13 @@
     - php71w-fpm
     - php71w-cli
     - php71w-pgsql
+  - name: install phantomjs via npm
+    command: npm install -g phantomjs
+    args:
+      creates: /usr/lib/node_modules/phantomjs/lib/phantom/bin/phantomjs
+    become: true
   - name: start httpd daemon
     service: name=httpd enabled=true state=started
-    become: true
-  - name: retrieve phantomjs for poltergeist
-    unarchive:
-      src: https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-{{ poltergeist|quote }}-linux-x86_64.tar.bz2
-      dest: /tmp
-      remote_src: true
-      creates: /tmp/phantomjs-{{ poltergeist|quote }}-linux-x86_64/bin/phantomjs
-  - name: install phantomjs for poltergeist
-    command: cp /tmp/phantomjs-{{ poltergeist|quote }}-linux-x86_64/bin/phantomjs
-      /usr/local/bin/
-    args:
-      creates: /usr/local/bin/phantomjs
     become: true
   post_tasks:
   - name: copy standard bundler files to home directory
