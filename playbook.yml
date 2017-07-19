@@ -50,6 +50,7 @@
     - php71w-pear
     - php71w-xml
     - php71w-xmlrpc
+    - vim
   - name: install phantomjs via npm
     command: npm install -g phantomjs
     args:
