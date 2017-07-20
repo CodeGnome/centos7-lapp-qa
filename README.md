@@ -52,11 +52,12 @@ This project is meant to be run as a submodule within your source tree.
 If you invert this relationship, just disable or reconfigure Vagrant's
 synced folders.
 
-    git submodule add https://github.com/CodeGnome/centos7-lapp-qa.git
+    git submodule add https://github.com/CodeGnome/centos7-lapp-qa.git \
+        vagrant
     git commit -m 'Add Vagrant support as a submodule.' \
         .gitmodules centos7-lapp-qa
 
-    cd centos7-lapp-qa
+    cd vagrant
     ./vagrant_provision.sh
 
 *NB: Older versions of Git may not initialize submodules automatically.
