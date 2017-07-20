@@ -52,7 +52,7 @@
     - php71w-xmlrpc
     - vim
   - name: install phantomjs via npm
-    command: npm install -g phantomjs
+    command: npm install -g phantomjs-prebuilt
     args:
       creates: /usr/lib/node_modules/phantomjs/lib/phantom/bin/phantomjs
     become: true
