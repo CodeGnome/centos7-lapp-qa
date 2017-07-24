@@ -43,9 +43,10 @@ by copying conf and ini files from the source tree or the host. See
 "Caveats" for other assumptions.
 
 ## Dependencies
-1. Vagrant
-1. VirtualBox
-1. Ansible
+1. [Vagrant](https://www.vagrantup.com/)
+1. [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest)
+1. [VirtualBox](https://www.virtualbox.org/)
+1. [Ansible](https://www.ansible.com/)
 
 ## Installation and Setup
 This project is meant to be run as a submodule within your source tree.
