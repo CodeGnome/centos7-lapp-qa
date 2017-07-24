@@ -64,7 +64,7 @@
     copy: src={{ item }} dest=/home/vagrant/
     with_fileglob: Gemfile*
   - name: install 'bundler' gem
-    gem: name=bundler state=present
+    gem: name=bundler state=latest
   - name: install bundled gems in home directory
     bundler: state=present exclude_groups=production
   - name: install bundled gems in source tree
