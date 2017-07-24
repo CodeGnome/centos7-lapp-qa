@@ -78,6 +78,21 @@ VirtualBox GUI, or connect to the web server with your browser.
 ### Browser
     http://localhost:8080
 
+## Common Errors
+
+> Vagrant was unable to mount VirtualBox shared folders.
+
+This is caused by a mismatch (or absence of) the VirtualBox Guest
+Additions. Run `vagrant plugin install vagrant-vbguest` and then rerun
+the provisioning script.
+
+> ERROR! the role 'zzet.rbenv' was not found
+
+This happens when Ansible is installed as root, or when the current user
+on the host doesn't have write access to the Ansible directories.
+Running `sudo ansible-galaxy install zzet.rbenv` and then rerunning the
+provisioning script will fix it.
+
 ## Caveats
 This project is a base. It still needs customization to:
 
