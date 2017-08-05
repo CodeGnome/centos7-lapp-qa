@@ -1,0 +1,3 @@
+[submodule "vagrancy_module"]
+	path = vagrancy_module
+	url = https://github.com/CodeGnome/vagrancy.git
