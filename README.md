@@ -87,7 +87,7 @@ that's your case, you can pull down any Gemfile you like and then
 `bundle install` them into the VM's environment.
 
 If you don't have your own, consider using the author's
-[Cucumber-centric Gemfile] as a base. For example, assuming your Git
+[Cucumber-centric Gemfile][5] as a base. For example, assuming your Git
 repository is already mounted properly:
 
     cd /usr/local/src
