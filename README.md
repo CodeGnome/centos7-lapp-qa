@@ -78,6 +78,34 @@ VirtualBox GUI, or connect to the web server with your browser.
 ### Browser
     http://localhost:8080
 
+### Adding Gems
+The expectation is that your project's source code is being mounted at
+*/usr/local/src*, and that you will want to run the gems bundled into
+your application's source code. However, some testers don't have the
+luxury of having their testing harness included in the mainline. If
+that's your case, you can pull down any Gemfile you like and then
+`bundle install` them into the VM's environment.
+
+If you don't have your own, consider using the author's
+[Cucumber-centric Gemfile] as a base. For example, assuming your Git
+repository is already mounted properly:
+
+    cd /usr/local/src
+    curl -sLo Gemfile https://goo.gl/iNsBjr
+    bundle install
+
+    # Tell Git to ignore your custom files.
+    for file in Gemfile{,.lock} .bundle do
+        echo "$file" >> .git/info/exclude
+    done
+
+Other solutions, such as installing the bundle in your home directory
+and relying on rbenv shims to invoke the right gems without calling
+`bundle exec` (which won't find a bundle in some other directory), are
+certainly possible. This will install shims for your currently-select
+Ruby, which you can use the installed gems almost anywhere that it isn't
+being overriden simply by omitting `bundle`exec`.
+
 ## Common Errors
 
 > Vagrant was unable to mount VirtualBox shared folders.
@@ -124,3 +152,4 @@ to-do list. Eventually. Probably when you send me a pull request. 🙈🙉🙊
 [2]: http://www.gnu.org/copyleft/gpl.html
 [3]: http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png
 [4]: https://creativecommons.org/licenses/by-nc-sa/4.0/
+[5]: https://goo.gl/iNsBjr
